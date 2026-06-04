@@ -702,5 +702,30 @@ document.getElementById('regForm').addEventListener('submit', function(e) {
 });
 </script>
 
+<script>
+// Broadcast page height to the WordPress parent so the iframe can auto-fit (no inner scrollbar)
+(function () {
+  var last = 0;
+  function measure() {
+    var b = document.body, e = document.documentElement;
+    return Math.max(b.scrollHeight, b.offsetHeight, e.scrollHeight, e.offsetHeight) + 4;
+  }
+  function post(force) {
+    var v = measure();
+    if (force || v !== last) { last = v; parent.postMessage({ ycFrameHeight: v }, '*'); }
+  }
+  window.addEventListener('load', function () { post(true); });
+  window.addEventListener('resize', function () { post(true); });
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(function () { post(false); });
+    ro.observe(document.body); ro.observe(document.documentElement);
+  }
+  Array.prototype.forEach.call(document.images, function (img) {
+    if (!img.complete) img.addEventListener('load', function () { post(true); });
+  });
+  var n = 0, iv = setInterval(function () { post(false); if (++n > 20) clearInterval(iv); }, 400);
+})();
+</script>
+
 </body>
 </html>
