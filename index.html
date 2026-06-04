@@ -5,30 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Member Registration — Youth Corner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --accent: #e36a55;
-  --accent-dark: #b6423b;
-  --cream: #f2e9d0;
-  --dark: #2a2b2c;
+  --accent: #c08a4e;
+  --accent-dark: #946335;
+  --cream: #f4ecd6;
+  --dark: #1d1e2e;
   --w: rgba(255,255,255,1);
   --w80: rgba(255,255,255,.8);
   --w50: rgba(255,255,255,.5);
   --w20: rgba(255,255,255,.2);
   --w10: rgba(255,255,255,.1);
   --w06: rgba(255,255,255,.06);
-  --gradient: linear-gradient(135deg, #7883f8 0%, #2a2b2c 100%);
-  --grad-bar: rgba(42,43,44,.95);
+  --gradient:
+    radial-gradient(circle at 14% 16%, rgba(64,104,150,0.55), transparent 46%),
+    radial-gradient(circle at 86% 22%, rgba(122,72,128,0.48), transparent 50%),
+    radial-gradient(circle at 50% 94%, rgba(150,116,66,0.40), transparent 55%);
+  --grad-bar: rgba(29,30,46,.95);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { min-height: 100%; }
 body {
-  font-family: 'Jost', sans-serif;
+  font-family: 'Lato', sans-serif;
   color: var(--w);
-  background: var(--gradient);
+  background: var(--dark);
+  background-image: var(--gradient);
   background-attachment: fixed;
-  background-size: 200% 200%;
 }
 
 /* HERO */
@@ -85,13 +88,14 @@ body {
 }
 
 .page-title {
+  font-family: 'Quicksand', sans-serif;
   font-size: clamp(34px, 8vw, 52px);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.05;
   letter-spacing: -.02em;
   margin-bottom: 16px;
 }
-.page-title span { color: #2a2b2c; }
+.page-title span { color: var(--accent); }
 
 .page-sub {
   font-size: 14px;
@@ -147,7 +151,7 @@ body {
   background: var(--w10);
   border: 1px solid var(--w20);
   color: var(--w);
-  font-family: 'Jost', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 14px;
   font-weight: 300;
   padding: 13px 15px;
@@ -187,8 +191,8 @@ textarea.fi { resize: vertical; min-height: 90px; line-height: 1.6; }
   border-color: var(--w20);
 }
 .check-option.selected {
-  background: rgba(227,106,85,.15);
-  border-color: rgba(227,106,85,.45);
+  background: rgba(192,138,78,.15);
+  border-color: rgba(192,138,78,.45);
 }
 .check-option input[type="checkbox"] {
   flex-shrink: 0;
@@ -247,7 +251,7 @@ textarea.fi { resize: vertical; min-height: 90px; line-height: 1.6; }
   width: 100%;
   background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
   color: var(--cream);
-  font-family: 'Jost', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 700;
   font-size: 12px;
   letter-spacing: .2em;
@@ -292,8 +296,9 @@ textarea.fi { resize: vertical; min-height: 90px; line-height: 1.6; }
 }
 .ty-icon { font-size: 40px; margin-bottom: 24px; }
 .ty-title {
+  font-family: 'Quicksand', sans-serif;
   font-size: clamp(36px, 8vw, 54px);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.05;
   margin-bottom: 16px;
 }
@@ -476,16 +481,24 @@ textarea.fi { resize: vertical; min-height: 90px; line-height: 1.6; }
             </div>
           </label>
           <label class="check-option">
-            <input type="checkbox" name="ycProg" value="Climate Action Group">
+            <input type="checkbox" name="ycProg" value="Eco-Corner">
             <div class="check-option-text">
-              <strong>Climate Action Group</strong>
-              <span>Youth-led climate action and community projects.</span>
+              <strong>Eco-Corner</strong>
+              <span>Youth-led environmental action and community projects.</span>
             </div>
           </label>
           <label class="check-option">
             <input type="checkbox" name="ycProg" value="Café Corner">
             <div class="check-option-text">
               <strong>Café Corner</strong>
+              <span>A relaxed youth café run with young people.</span>
+            </div>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="ycProg" value="Youth Open Mics">
+            <div class="check-option-text">
+              <strong>Youth Open Mics</strong>
+              <span>Open-mic nights for young performers — music, poetry, comedy, and more.</span>
             </div>
           </label>
         </div>
@@ -512,6 +525,13 @@ textarea.fi { resize: vertical; min-height: 90px; line-height: 1.6; }
             <div class="check-option-text">
               <strong>Youth Innovation Studio</strong>
               <span>Hands-on technology and innovation workshops.</span>
+            </div>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="oxieProg" value="Youth Innovation Events">
+            <div class="check-option-text">
+              <strong>Youth Innovation Events</strong>
+              <span>Showcases, competitions, and community events for young innovators.</span>
             </div>
           </label>
           <label class="check-option">
