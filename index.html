@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Member Registration — Youth Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #e36a55;
+  --accent-dark: #b6423b;
+  --cream: #f2e9d0;
+  --dark: #2a2b2c;
+  --w: rgba(255,255,255,1);
+  --w80: rgba(255,255,255,.8);
+  --w50: rgba(255,255,255,.5);
+  --w20: rgba(255,255,255,.2);
+  --w10: rgba(255,255,255,.1);
+  --w06: rgba(255,255,255,.06);
+  --gradient: linear-gradient(135deg, #7883f8 0%, #2a2b2c 100%);
+  --grad-bar: rgba(42,43,44,.95);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100%; }
+body {
+  font-family: 'Jost', sans-serif;
+  color: var(--w);
+  background: var(--gradient);
+  background-attachment: fixed;
+  background-size: 200% 200%;
+}
+
+/* HERO */
+.form-hero {
+  text-align: center;
+  padding: 56px 24px 44px;
+  border-bottom: 1px solid var(--w10);
+}
+.hero-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--w80);
+  margin-bottom: 28px;
+}
+.hero-logo {
+  width: 220px;
+  max-width: 70%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* SCREENS */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* FORM WRAP */
+.form-wrap {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 52px 24px 80px;
+  animation: fadeUp .6s cubic-bezier(.16,1,.3,1);
+}
+
+.yc-mark {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--w80);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.yc-mark::before, .yc-mark::after {
+  content: '';
+  width: 36px;
+  height: 1px;
+  background: var(--w50);
+}
+
+.page-title {
+  font-size: clamp(34px, 8vw, 52px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  margin-bottom: 16px;
+}
+.page-title span { color: #2a2b2c; }
+
+.page-sub {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.required-note {
+  font-size: 11px;
+  color: var(--w50);
+  margin-bottom: 32px;
+}
+.required-note span { color: var(--w80); }
+
+/* SECTIONS */
+.section { margin-bottom: 36px; }
+.section-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--w);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--w20);
+}
+.section-label .opt {
+  font-size: 8px;
+  letter-spacing: .12em;
+  color: var(--w50);
+  font-weight: 400;
+  text-transform: none;
+  margin-left: 6px;
+}
+
+/* FIELDS */
+.fg { margin-bottom: 20px; }
+.flabel {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--w80);
+  margin-bottom: 9px;
+}
+.frow { display: flex; gap: 12px; }
+.frow .fg { flex: 1; }
+.fi, .fs {
+  width: 100%;
+  background: var(--w10);
+  border: 1px solid var(--w20);
+  color: var(--w);
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 13px 15px;
+  border-radius: 3px;
+  outline: none;
+  transition: background .2s, border-color .2s;
+  -webkit-appearance: none;
+}
+.fi:focus, .fs:focus {
+  background: var(--w20);
+  border-color: var(--accent);
+}
+.fi::placeholder { color: var(--w50); }
+.fs option { background: #22223b; }
+textarea.fi { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+/* CHECKBOX OPTIONS */
+.check-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.check-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--w06);
+  border: 1px solid var(--w10);
+  border-radius: 4px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.check-option:hover {
+  background: var(--w10);
+  border-color: var(--w20);
+}
+.check-option.selected {
+  background: rgba(227,106,85,.15);
+  border-color: rgba(227,106,85,.45);
+}
+.check-option input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.check-option-text strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--w);
+  margin-bottom: 2px;
+}
+.check-option-text span {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.6;
+}
+
+/* GDPR BLOCK */
+.consent-block {
+  background: var(--w10);
+  border: 1px solid var(--w20);
+  border-radius: 4px;
+  padding: 20px;
+}
+.gdpr-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+}
+.gdpr-label input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.gdpr-text {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.8;
+}
+.gdpr-text a { color: var(--w); text-decoration: underline; }
+.gdpr-text strong { color: var(--w); font-weight: 600; }
+
+/* SUBMIT */
+.wbtn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+  color: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  padding: 18px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: opacity .2s;
+  margin-top: 8px;
+}
+.wbtn:hover { opacity: .9; }
+.wbtn:disabled { opacity: .35; cursor: default; }
+
+.err-msg {
+  margin-top: 14px;
+  font-size: 13px;
+  background: rgba(220,50,50,.2);
+  border: 1px solid rgba(220,50,50,.4);
+  padding: 12px 16px;
+  border-radius: 3px;
+  color: var(--w80);
+  display: none;
+  text-align: center;
+}
+.err-msg.show { display: block; }
+
+/* THANK YOU */
+#thankYouScreen {
+  min-height: 100vh;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#thankYouScreen.active { display: flex; }
+.ty-wrap {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 52px 24px 80px;
+  text-align: center;
+  animation: fadeUp .6s cubic-bezier(.16,1,.3,1);
+}
+.ty-icon { font-size: 40px; margin-bottom: 24px; }
+.ty-title {
+  font-size: clamp(36px, 8vw, 54px);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+.ty-title span { color: var(--accent); }
+.ty-sub {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--w80);
+  line-height: 1.8;
+}
+.ty-sub a { color: var(--accent); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 480px) {
+  .frow { flex-direction: column; gap: 0; }
+  .frow .fg { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="form-hero">
+  <div class="hero-label">— Youth Corner CIC —</div>
+  <img src="https://oxie.org.uk/wp-content/uploads/2026/05/Youth-Corner-1.png" alt="Youth Corner" class="hero-logo">
+</div>
+
+<!-- FORM SCREEN -->
+<div id="formScreen" class="screen active">
+  <div class="form-wrap">
+
+    <h1 class="page-title">Member<br><span>Registration</span></h1>
+
+    <p class="page-sub">
+      We're really glad you're here. Youth Corner is a community youth club built around the belief that every young person deserves a safe, fun, and inspiring place to belong.<br><br>
+      This form registers your child as a member. It takes around five minutes to complete and helps us keep your child safe, plan great sessions, and stay in touch with you when we need to.<br><br>
+      All information is held securely and used only for the running of Youth Corner. We will never share your details with third parties without your consent.
+    </p>
+
+    <p class="required-note">Fields marked <span>*</span> are required.</p>
+
+    <form id="regForm" novalidate>
+
+      <!-- CHILD DETAILS -->
+      <div class="section">
+        <div class="section-label">About Your Child</div>
+
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel" for="childFirst">First Name *</label>
+            <input class="fi" type="text" id="childFirst" name="childFirst" placeholder="First name" required>
+          </div>
+          <div class="fg">
+            <label class="flabel" for="childLast">Last Name *</label>
+            <input class="fi" type="text" id="childLast" name="childLast" placeholder="Last name" required>
+          </div>
+        </div>
+
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel" for="childDob">Date of Birth *</label>
+            <input class="fi" type="date" id="childDob" name="childDob" required>
+          </div>
+          <div class="fg">
+            <label class="flabel" for="yearGroup">Year Group</label>
+            <select class="fs" id="yearGroup" name="yearGroup">
+              <option value="" selected>Select year</option>
+              <option>Year 3</option>
+              <option>Year 4</option>
+              <option>Year 5</option>
+              <option>Year 6</option>
+              <option>Year 7</option>
+              <option>Year 8</option>
+              <option>Year 9</option>
+              <option>Year 10</option>
+              <option>Year 11</option>
+              <option>Year 12</option>
+              <option>Year 13</option>
+              <option>Other / Left School</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="fg">
+          <label class="flabel" for="school">School Name</label>
+          <input class="fi" type="text" id="school" name="school" placeholder="e.g. Chipping Norton School">
+        </div>
+      </div>
+
+      <!-- PARENT / GUARDIAN DETAILS -->
+      <div class="section">
+        <div class="section-label">Your Details</div>
+
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel" for="parentFirst">Your First Name *</label>
+            <input class="fi" type="text" id="parentFirst" name="parentFirst" placeholder="First name" required>
+          </div>
+          <div class="fg">
+            <label class="flabel" for="parentLast">Your Last Name *</label>
+            <input class="fi" type="text" id="parentLast" name="parentLast" placeholder="Last name" required>
+          </div>
+        </div>
+
+        <div class="fg">
+          <label class="flabel" for="parentEmail">Your Email Address *</label>
+          <input class="fi" type="email" id="parentEmail" name="parentEmail" placeholder="your@email.com" required>
+        </div>
+
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel" for="parentPhone">Your Phone Number *</label>
+            <input class="fi" type="tel" id="parentPhone" name="parentPhone" placeholder="07..." required>
+          </div>
+          <div class="fg">
+            <label class="flabel" for="relationship">Relationship to Child *</label>
+            <select class="fs" id="relationship" name="relationship" required>
+              <option value="" disabled selected>Please select</option>
+              <option>Parent</option>
+              <option>Guardian</option>
+              <option>Carer</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEALTH & SAFETY -->
+      <div class="section">
+        <div class="section-label">Health &amp; Safety</div>
+
+        <div class="fg">
+          <label class="flabel" for="medical">Medical Conditions, Allergies or Additional Needs</label>
+          <textarea class="fi" id="medical" name="medical" placeholder="List any medical conditions, allergies, dietary requirements, or additional needs we should be aware of. Write 'None' if not applicable."></textarea>
+        </div>
+
+        <div class="frow">
+          <div class="fg">
+            <label class="flabel" for="emergencyName">Emergency Contact Name *</label>
+            <input class="fi" type="text" id="emergencyName" name="emergencyName" placeholder="Full name" required>
+          </div>
+          <div class="fg">
+            <label class="flabel" for="emergencyPhone">Emergency Contact Phone *</label>
+            <input class="fi" type="tel" id="emergencyPhone" name="emergencyPhone" placeholder="07..." required>
+          </div>
+        </div>
+      </div>
+
+      <!-- YOUTH CORNER PROGRAMMES -->
+      <div class="section">
+        <div class="section-label">Youth Corner Programmes <span class="opt">— optional</span></div>
+
+        <p style="font-size:13px;font-weight:300;color:var(--w80);line-height:1.75;margin-bottom:16px;">
+          Which Youth Corner programmes is your child interested in? We'll keep you informed as spaces become available.
+        </p>
+
+        <div class="check-group">
+          <label class="check-option">
+            <input type="checkbox" name="ycProg" value="Youth Worker Apprenticeship">
+            <div class="check-option-text">
+              <strong>Youth Worker Apprenticeship</strong>
+              <span>For older young people interested in training as youth workers.</span>
+            </div>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="ycProg" value="Art Corner">
+            <div class="check-option-text">
+              <strong>Art Corner</strong>
+              <span>Creative arts sessions run through Youth Corner.</span>
+            </div>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="ycProg" value="Philosophy Corner">
+            <div class="check-option-text">
+              <strong>Philosophy Corner</strong>
+              <span>Discussion and debate sessions exploring big ideas.</span>
+            </div>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="ycProg" value="Climate Action Group">
+            <div class="check-option-text">
+              <strong>Climate Action Group</strong>
+              <span>Youth-led climate action and community projects.</span>
+            </div>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="ycProg" value="Café Corner">
+            <div class="check-option-text">
+              <strong>Café Corner</strong>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- OXIE INNOVATION PROGRAMMES -->
+      <div class="section">
+        <div class="section-label">OXIE Innovation Programmes <span class="opt">— optional</span></div>
+
+        <p style="font-size:13px;font-weight:300;color:var(--w80);line-height:1.75;margin-bottom:16px;">
+          Youth Corner is part of the OXIE (Oxford Innovative Education) family. Let us know if your child is interested in any of OXIE's wider innovation courses and programmes.
+        </p>
+
+        <div class="check-group">
+          <label class="check-option">
+            <input type="checkbox" name="oxieProg" value="Critical Minds">
+            <div class="check-option-text">
+              <strong>Critical Minds</strong>
+              <span>AI literacy and critical thinking programme for schools.</span>
+            </div>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="oxieProg" value="Youth Innovation Studio">
+            <div class="check-option-text">
+              <strong>Youth Innovation Studio</strong>
+              <span>Hands-on technology and innovation workshops.</span>
+            </div>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="oxieProg" value="Drone Football">
+            <div class="check-option-text">
+              <strong>Drone Football</strong>
+              <span>Sport meets technology — fly drones to play football.</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- CONSENT -->
+      <div class="section">
+        <div class="section-label">Consent &amp; Permissions</div>
+
+        <div style="display:flex;flex-direction:column;gap:14px;">
+
+          <!-- 1. Participation & first aid -->
+          <div class="consent-block">
+            <label class="gdpr-label" id="participationLabel">
+              <input type="checkbox" id="participationConsent" name="participationConsent" value="yes" required>
+              <p class="gdpr-text">
+                <strong style="display:block;margin-bottom:6px;color:var(--w);">Participation &amp; First Aid *</strong>
+                I confirm that I am the parent or legal guardian of the participant named above and give permission for them to take part in Youth Corner programmes and events. I understand that all sessions are supervised by trained staff and delivered in a safe, structured environment. In the event of illness or injury, I give permission for qualified staff to administer basic first aid and to seek appropriate medical treatment if necessary.
+              </p>
+            </label>
+          </div>
+
+          <!-- 2. Photo & video -->
+          <div class="consent-block">
+            <label class="gdpr-label" id="photoLabel">
+              <input type="checkbox" id="photoConsent" name="photoConsent" value="yes">
+              <p class="gdpr-text">
+                <strong style="display:block;margin-bottom:6px;color:var(--w);">Photography &amp; Video <span style="font-weight:300;font-size:11px;color:var(--w50);">— optional</span></strong>
+                I give permission for Youth Corner to take photographs and/or video footage of the participant during sessions, matches, and events. I understand this content may be used for promotional purposes, including on social media, the website, reports, funding applications, and marketing materials. We will never publish full names alongside images without additional consent.
+              </p>
+            </label>
+          </div>
+
+          <!-- 3. Data / GDPR -->
+          <div class="consent-block">
+            <label class="gdpr-label" id="gdprLabel">
+              <input type="checkbox" id="gdprConsent" name="gdprConsent" value="yes" required>
+              <p class="gdpr-text">
+                <strong style="display:block;margin-bottom:6px;color:var(--w);">Data &amp; Privacy *</strong>
+                I give my consent for <strong>Youth Corner CIC</strong> to collect and store the information provided in this form for the purposes of registering my child as a member, managing their participation in club activities, and communicating with me as their parent or guardian. I understand that this information may be shared with Youth Corner's parent organisation, <strong>OXIE (Oxford Innovative Education CIC)</strong>, for operational and administrative purposes. My data will be held securely, used only for these purposes, and not shared with any other third party without my consent. I can withdraw my consent at any time by contacting <a href="mailto:info@youthcorner.uk">info@youthcorner.uk</a>. I confirm I have read the <a href="#">Youth Corner Privacy Policy</a>.
+              </p>
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SUBMIT -->
+      <button class="wbtn" type="submit" id="submitBtn">Register My Child</button>
+      <div class="err-msg" id="errMsg">Please fill in all required fields and accept the data consent to continue.</div>
+
+    </form>
+  </div>
+</div>
+
+<!-- THANK YOU SCREEN -->
+<div id="thankYouScreen" class="screen">
+  <div class="ty-wrap">
+    <div class="ty-icon">✓</div>
+    <h1 class="ty-title">You're<br><span>Registered</span></h1>
+    <p class="ty-sub">
+      Welcome to Youth Corner. We've received your registration and will be in touch soon.<br><br>
+      If you have any questions in the meantime, email us at <a href="mailto:info@youthcorner.uk">info@youthcorner.uk</a>.
+    </p>
+  </div>
+</div>
+
+<script>
+var SCRIPT_URL = 'https://script.google.com/a/macros/oxie.org.uk/s/AKfycbz7iOa6dsZIwth8a0UP3gSu9kysDGnAn50Yo-NoDplgcX34u7OfYNmR_R4tMjbd8joJFA/exec';
+
+// Checkbox highlight on select
+document.querySelectorAll('.check-option input[type="checkbox"]').forEach(function(cb) {
+  cb.addEventListener('change', function() {
+    this.closest('.check-option').classList.toggle('selected', this.checked);
+  });
+});
+
+// Form submit
+document.getElementById('regForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  var err = document.getElementById('errMsg');
+  var btn = document.getElementById('submitBtn');
+
+  // Validate required fields
+  var required = [
+    'childFirst', 'childLast', 'childDob',
+    'parentFirst', 'parentLast', 'parentEmail', 'parentPhone', 'relationship',
+    'emergencyName', 'emergencyPhone'
+  ];
+  var valid = true;
+  required.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el.value.trim()) valid = false;
+  });
+  if (!document.getElementById('participationConsent').checked) valid = false;
+  if (!document.getElementById('gdprConsent').checked) valid = false;
+
+  if (!valid) {
+    err.classList.add('show');
+    err.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  err.classList.remove('show');
+  btn.disabled = true;
+  btn.textContent = 'Registering...';
+
+  // Collect programme interests
+  var ycProgs = Array.from(document.querySelectorAll('input[name="ycProg"]:checked'))
+    .map(function(cb) { return cb.value; }).join(', ') || 'None selected';
+  var oxieProgs = Array.from(document.querySelectorAll('input[name="oxieProg"]:checked'))
+    .map(function(cb) { return cb.value; }).join(', ') || 'None selected';
+
+  // Build row — column order matches sheet headers below
+  var row = [
+    new Date().toISOString(),                                                          // Timestamp
+    document.getElementById('childFirst').value.trim(),                                // Child First Name
+    document.getElementById('childLast').value.trim(),                                 // Child Last Name
+    document.getElementById('childDob').value,                                         // Date of Birth
+    document.getElementById('school').value.trim() || '—',                            // School
+    document.getElementById('yearGroup').value || '—',                                 // Year Group
+    document.getElementById('parentFirst').value.trim() + ' ' +
+      document.getElementById('parentLast').value.trim(),                              // Parent/Guardian Name
+    document.getElementById('parentEmail').value.trim(),                               // Email
+    document.getElementById('parentPhone').value.trim(),                               // Phone
+    document.getElementById('relationship').value,                                     // Relationship
+    document.getElementById('medical').value.trim() || '—',                           // Medical Notes
+    document.getElementById('emergencyName').value.trim(),                             // Emergency Contact Name
+    document.getElementById('emergencyPhone').value.trim(),                            // Emergency Contact Phone
+    ycProgs,                                                                           // YC Programmes
+    oxieProgs,                                                                         // OXIE Programmes
+    'Yes',                                                                             // Participation Consent
+    document.getElementById('photoConsent').checked ? 'Yes' : 'No',                   // Photo Consent
+    'Yes'                                                                              // GDPR Consent
+  ];
+
+  var params = new URLSearchParams({
+    action: 'appendRow',
+    sheet: 'Youth Corner Registrations',
+    row: JSON.stringify(row)
+  });
+
+  fetch(SCRIPT_URL + '?' + params.toString())
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.ok) {
+        document.getElementById('formScreen').classList.remove('active');
+        document.getElementById('thankYouScreen').classList.add('active');
+        window.scrollTo(0, 0);
+      } else {
+        throw new Error('Script error');
+      }
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Register My Child';
+      err.textContent = 'Something went wrong — please try again or contact us directly.';
+      err.classList.add('show');
+    });
+});
+</script>
+
+</body>
+</html>
